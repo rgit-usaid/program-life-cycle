@@ -1,0 +1,16 @@
+[30-Aug-2016 11:45:04] PHP Warning:  unlink(employee_picture/1472542168_office-boy-1.jpg) [<a href='function.unlink'>function.unlink</a>]: No such file or directory in /home/rgdemode/public_html/usaid/hr-connect/manage_employee.php on line 87
+[30-Aug-2016 14:58:44] PHP Warning:  unlink(picture/hr/image.jpg) [<a href='function.unlink'>function.unlink</a>]: No such file or directory in /home/rgdemode/public_html/usaid/hr-connect/manage_employee.php on line 98
+[30-Aug-2016 15:11:13] PHP Parse error:  syntax error, unexpected $end in /home/rgdemode/public_html/usaid/hr-connect/manage_employee.php on line 362
+[30-Aug-2016 15:18:39] PHP Warning:  unlink() [<a href='function.unlink'>function.unlink</a>]: No such file or directory in /home/rgdemode/public_html/usaid/hr-connect/manage_employee.php on line 98
+[30-Aug-2016 15:46:01] PHP Warning:  unlink() [<a href='function.unlink'>function.unlink</a>]: No such file or directory in /home/rgdemode/public_html/usaid/hr-connect/manage_employee.php on line 98
+[30-Aug-2016 20:15:44] PHP Warning:  unlink(employee_picture/1472573437_USAID Photo - Stephen Jarrett.jpg) [<a href='function.unlink'>function.unlink</a>]: No such file or directory in /home/rgdemode/public_html/usaid/hr-connect/manage_employee.php on line 98
+[02-Dec-2016 10:48:53] PHP Fatal error:  Call to undefined function  requestbycurl() in /home/rgdemode/public_html/usaid/hr-connect/work_location.php on line 202
+[02-Dec-2016 10:57:44] PHP Fatal error:  Call to undefined function  requestbycurl() in /home/rgdemode/public_html/usaid/hr-connect/work_location.php on line 202
+[26-Mar-2017 15:39:03] PHP Warning:  Unknown: write failed: Disk quota exceeded (122) in Unknown on line 0
+[26-Mar-2017 15:39:03] PHP Warning:  Unknown: Failed to write session data (files). Please verify that the current setting of session.save_path is correct (/tmp) in Unknown on line 0
+[09-Apr-2017 18:19:02] PHP Warning:  Unknown: write failed: Disk quota exceeded (122) in Unknown on line 0
+[09-Apr-2017 18:19:02] PHP Warning:  Unknown: Failed to write session data (files). Please verify that the current setting of session.save_path is correct (/tmp) in Unknown on line 0
+[01-Oct-2017 15:07:32] PHP Warning:  Unknown: write failed: Disk quota exceeded (122) in Unknown on line 0
+[01-Oct-2017 15:07:32] PHP Warning:  Unknown: Failed to write session data (files). Please verify that the current setting of session.save_path is correct (/tmp) in Unknown on line 0
+[01-Oct-2017 15:09:57] PHP Warning:  Unknown: write failed: Disk quota exceeded (122) in Unknown on line 0
+[01-Oct-2017 15:09:57] PHP Warning:  Unknown: Failed to write session data (files). Please verify that the current setting of session.save_path is correct (/tmp) in Unknown on line 0

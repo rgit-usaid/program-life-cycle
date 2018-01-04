@@ -1,0 +1,329 @@
+.top-menu{
+	background-color: #233d62;
+	height: 64px;
+	text-align: center;
+	ul{
+		width: 100%;
+		margin:0 auto;
+		padding-top: 20px;
+		li{
+			a{
+				padding: 11px 15px;
+				margin: 0px 15px;
+				background-color: #e1edf3;
+				color: #000;
+				font-weight: bold;
+				text-decoration: none;
+				&:hover{
+					background-color: #337ab7;
+					color: #fff;
+				}
+			}
+		}
+	}
+}
+a.active-menu{
+	background-color: #337ab7;
+	color: #fff;
+}
+
+.landing-page{
+	ul{
+		padding-top: 20px;
+		li{
+			padding:10px;
+			display: block;
+			a{
+				font-size: 17px;
+				text-decoration: none;
+			}
+		}
+	}
+}
+/* Vendor Management*/
+
+.vendor{
+	width: 900px;
+	border:1px solid gray;
+	margin-top: 20px;
+	.form-horizontal{
+		padding: 35px;
+	}
+}
+.form-horizontal .control-label{
+	text-align: left;
+}
+
+#manage-vendor{
+	padding-top: 9px;
+	.form-title{
+		width: 120px;
+		font-size: 16px;
+		font-weight: bold;
+		margin-left: 10px;
+		position: relative;
+		background-color: #fff;
+		.fa{
+			cursor: pointer: ;
+			margin:0px 15px;
+		}
+	}
+	.new-form-content{
+		margin-top: -11px;
+		height:auto;
+		width: 100%;
+		border: 2px solid #ddd;
+		.manage-info{
+			padding: 25px;
+			label{
+				padding-top: 10px;
+			}
+			.submit{
+				background-color: #ddd;
+			}
+		}
+	}
+	.append_form{
+		margin-top: -11px;
+		height:auto;
+		width: 100%;
+		border: 2px solid #ddd;
+		margin-top:20px;
+		.manage-info{
+			padding: 25px;
+			label{
+				padding-top: 10px;
+			}
+			.submit{
+				background-color: #ddd;
+			}
+		}
+	}
+}
+#manage-table{
+	margin:20px auto;
+}
+/*Hidden Search*/
+#manage-table_length, #manage-table_filter{
+	display: none;
+}
+.form-control{
+	/*width: auto;*/
+}
+/* Table CSS */
+#manage-table_filter{
+	float: right;
+}
+#manage-table_length{
+	float: left;
+}
+.form-control{
+	display: inline-block;
+}
+#manage-table_paginate{
+	float: right;
+}
+#manage-table_info{
+	float: left;
+}
+.paginate_button.btn{
+	background-color: #8c9dbb;
+	border:1px solid #fff;
+	color: #fff;
+}
+.paginate_button.btn.current{
+	background-color: #337ab7;
+	border:1px solid #fff;
+	color: #fff;
+}
+/*Button*/
+.project_btn{
+	color:#00a6d2; 
+	border:none; 
+	background:none;
+	font-weight:normal;
+	padding:0px;
+	margin:0px;
+	display:inline;
+}
+
+/*Header of Every Page*/
+#requisition-detail{
+	margin: 10px;
+	height:auto;
+	padding-bottom: 20px;
+	/*background-color: gray;*/
+	/*border: 1px solid #000;*/
+	box-shadow: 0 1px 0px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.head>tbody>tr>td{
+	border: 0;
+}
+.head>tbody>tr>th{
+	border: 0;
+	
+}
+.head>thead>tr>th>h3{
+	margin:0;
+}
+.head>thead>tr>th{
+	padding: 0;
+	h4{
+		margin-top:2px;
+		margin-bottom:4px;
+		margin-left: 22px;
+		font-weight: bold;
+		font-size: 15px
+	}
+}
+.head{
+	margin-bottom: 0;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd){
+	background: #fff;
+}
+.table-striped>tbody>tr:nth-of-type(even){
+	background: #fff;
+}
+/*Form Styling*/
+#form-requisiton{
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+h5#show_budget{
+	color:#5bc0de;
+	text-decoration: underline; 
+	cursor: pointer;
+}
+/*Basic*/
+.disp-none{
+	display: none;
+}
+.clin-table{
+	width: 50%;
+}
+/*menu Active Selection*/
+ul>li>a.menu-active{
+	background-color:#337ab7;
+	color:#fff;
+}
+.input-budget{
+	margin-left: 13px;
+}
+/*Header Menu Alignment*/
+#requisition-detail{
+	.table-responsive{
+		.head{
+			thead{
+				tr{
+					th{
+						background: #e1edf3;
+						ul{
+							margin-left: 10px; 
+							margin-bottom: 5px;
+							margin-top: 5px;
+						}
+					}
+				}
+			}
+			tbody{
+				color: gray;
+				font-size: 13px;
+			}
+		}
+	}
+}
+/* Button Action */
+.action{
+	padding: 2px 8px;
+}
+
+#manage-child-table{
+	width: 85%;
+	margin-left:6%; 
+	border-color: #ddd;
+	font-size: 12px;
+	/*align-items: center;*/
+}
+#manage-child-table > thead>tr>th{
+	padding: 0;
+}
+#manage-child-table > tbody>tr>td{
+	padding: 2px 9px;
+}
+
+#manage-parent-table >thead>tr>th{
+	padding: 3px;
+}
+#manage-parent-table >tbody>tr>td{
+	padding: 1px 14px;
+	vertical-align: middle;
+}
+/*Budget CSS*/
+.budget-number{
+	padding: 0;
+}
+.title-budget{
+	margin-top: 23px; 
+	margin-bottom: 13px;
+	.budget-title{		
+		padding-right: 7px;
+		h4{			
+			font-size: 16px;
+			span{
+				color: gray;
+				margin-left: 5px;
+			}
+		}
+	}	
+	.add_budget_item{
+		
+	}
+}
+/*Form Action*/
+.parent-tbl{
+	td{
+		form{
+			display:inline;
+			font-size:14px;
+			ul{
+				margin-left: 0;
+				margin-top: 2px;
+				margin-bottom: 2px;
+			}
+		}
+	}
+}
+#manage-parent-table{
+	thead{
+		background: #7ba8ce;
+		color: #fff;
+	}
+}
+#manage-child-table{
+	thead{
+		background: #bbb;
+		color: #fff;
+	}
+}
+
+/* Award Modification */
+@media (max-width:1140px){
+	#form-requisiton{
+	h4{
+		font-size: 16px;
+	}
+}
+}
+
+@media (max-width:1024px){
+	#form-requisiton{
+	h4{
+		font-size: 13px;
+	}
+}
+}
+
+
+

@@ -1,0 +1,370 @@
+<script id="code">
+  var nodeIdCounter = -1; // use a sequence to guarantee key uniqueness as we add/remove/modify nodes
+
+  function init() {
+    if (window.goSamples) goSamples();  // init for these samples -- you don't need to call this
+    var $ = go.GraphObject.make;  // for conciseness in defining templates
+
+    myDiagram =
+      $(go.Diagram, "myDiagramDiv",  //Diagram refers to its DIV HTML element by id
+        { initialContentAlignment: go.Spot.Center, "undoManager.isEnabled": true });
+
+
+    // when the document is modified, add a "*" to the title and enable the "Save" button
+    myDiagram.addDiagramListener("Modified", function(e) {
+      var button = document.getElementById("SaveButton");
+      if (button) button.disabled = !myDiagram.isModified;
+      var idx = document.title.indexOf("*");
+      if (myDiagram.isModified) {
+        if (idx < 0) document.title += "*";
+      } else {
+        if (idx >= 0) document.title = document.title.substr(0, idx);
+      }
+    });
+	
+	
+	// To simplify this code we define a function for creating a context menu button:
+    function makeButton(text, action, visiblePredicate) {
+      return $("ContextMenuButton",
+               $(go.TextBlock, text),
+               { click: action },
+               // don't bother with binding GraphObject.visible if there's no predicate
+               visiblePredicate ? new go.Binding("visible", "", visiblePredicate).ofObject() : {});
+    }
+
+	 var nodeMenu =  // context menu for each Node
+      $(go.Adornment, "Vertical",
+        makeButton("Copy",
+                   function(e, obj) { e.diagram.commandHandler.copySelection(); console.log(e.diagram.commandHandler);}),
+        makeButton("Delete",
+                   function(e, obj) { e.diagram.commandHandler.deleteSelection(); }),
+        $(go.Shape, "LineH", { strokeWidth: 2, height: 1, stretch: go.GraphObject.Horizontal }),
+        makeButton("Add top port",
+                   function (e, obj) { addPort("top"); }),
+        makeButton("Add left port",
+                   function (e, obj) { addPort("left"); }),
+        makeButton("Add right port",
+                   function (e, obj) { addPort("right"); }),
+        makeButton("Add bottom port",
+                   function (e, obj) { addPort("bottom"); })
+      );
+	  
+	  
+	   var portSize = new go.Size(8, 8);
+
+    var portMenu =  // context menu for each port
+      $(go.Adornment, "Vertical",
+        makeButton("Remove port",
+                   // in the click event handler, the obj.part is the Adornment;
+                   // its adornedObject is the port
+                   function (e, obj) { removePort(obj.part.adornedObject); })
+      );
+
+
+    // manage boss info manually when a node or link is deleted from the diagram
+    myDiagram.addDiagramListener("SelectionDeleting", function(e) {
+      var part = e.subject.first(); // e.subject is the myDiagram.selection collection,
+                                    // so we'll get the first since we know we only have one selection
+      myDiagram.startTransaction("clear boss");
+      if (part instanceof go.Node) {
+        var it = part.findTreeChildrenNodes(); // find all child nodes
+        while(it.next()) { // now iterate through them and clear out the boss information
+          var child = it.value;
+          var bossText = child.findObject("boss"); // since the boss TextBlock is named, we can access it by name
+          if (bossText === null) return;
+          bossText.text = undefined;
+        }
+      } else if (part instanceof go.Link) {
+        var child = part.toNode;
+        var bossText = child.findObject("boss"); // since the boss TextBlock is named, we can access it by name
+        if (bossText === null) return;
+        bossText.text = undefined;
+      }
+      myDiagram.commitTransaction("clear boss");
+    });
+
+    
+    // override TreeLayout.commitNodes to also modify the background brush based on the tree depth level
+    myDiagram.layout.commitNodes = function() {
+      go.TreeLayout.prototype.commitNodes.call(myDiagram.layout);  // do the standard behavior
+      // then go through all of the vertexes and set their corresponding node's Shape.fill
+      // to a brush dependent on the TreeVertex.level value
+      myDiagram.layout.network.vertexes.each(function(v) {
+        if (v.node) {
+          var level = v.level % (levelColors.length);
+          var colors = levelColors[level].split("/");
+          var shape = v.node.findObject("SHAPE");
+          if (shape) shape.fill = $(go.Brush, "Linear", { 0: colors[0], 1: colors[1], start: go.Spot.Left, end: go.Spot.Right });
+        }
+      });
+    };
+
+    // This function is used to find a suitable ID when modifying/creating nodes.
+    // We used the counter combined with findNodeDataForKey to ensure uniqueness.
+    function getNextKey() {
+      var key = nodeIdCounter;
+      while (myDiagram.model.findNodeDataForKey(key.toString()) !== null) {
+        key = nodeIdCounter -= 1;
+      }
+      return key.toString();
+    }
+	
+	
+	// get tooltip text from the object's data enter
+	function tooltipTextConverter(info) {
+		var str = "";
+		str += "Create Date: " + info.createDate;
+		str += "\n \n Program Elements: " + info.programElements;
+		return str;
+	}
+    
+	 // define tooltips for nodes
+    var tooltiptemplate =
+       
+	  $(go.Adornment, "Auto",
+        $(go.Shape, "Rectangle",
+    		{ fill: "whitesmoke", stroke: "#CCCCCC" }),
+    	$(go.TextBlock,
+    		{ font: "bold 10pt Helvetica, bold Arial, sans-serif",
+    		wrap: go.TextBlock.WrapFit,
+    		margin: 10, stroke: "#4e5560" },
+    		new go.Binding("text", "", tooltipTextConverter))
+      );
+	  
+    // this is used to determine feedback during drags
+    function mayWorkFor(node1, node2) {
+      if (!(node1 instanceof go.Node)) return false;  // must be a Node
+      if (node1 === node2) return false;  // cannot work for yourself
+      if (node2.isInTreeOf(node1)) return false;  // cannot work for someone who works for you
+      return true;
+    }
+
+    // This function provides a common style for most of the TextBlocks.
+    // Some of these values may be overridden in a particular TextBlock.
+    function textStyle() {
+      return { font: "9pt  Segoe UI,sans-serif", stroke: "white" };
+    }
+
+    // This converter is used by the Picture.
+    function findHeadShot(key) {
+      if (key < 0 || key > 16) return "images/HSnopic.png"; // There are only 16 images on the server
+      return "images/HS" + key + ".png"
+    }
+
+    // define the Node template
+    myDiagram.nodeTemplate =
+      $(go.Node, "Table",
+        { locationObjectName: "BODY",
+          locationSpot: go.Spot.Center,
+          selectionObjectName: "BODY",
+          contextMenu: nodeMenu
+        },
+        new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+
+        // the body
+        $(go.Panel, "Auto",
+          { row: 1, column: 1, name: "BODY",
+            stretch: go.GraphObject.Fill, toolTip: tooltiptemplate  },
+          $(go.Shape, "Rectangle",
+            { stroke: null, strokeWidth: 0, minSize: new go.Size(56, 56) }),
+          $(go.TextBlock,
+            { margin: 10, textAlign: "center", font: "14px  Segoe UI,sans-serif", stroke: "white", editable: true },
+            new go.Binding("text", "name").makeTwoWay())
+        ),  // end Auto Panel body
+
+        // the Panel holding the left port elements, which are themselves Panels,
+        // created for each item in the itemArray, bound to data.leftArray
+        $(go.Panel, "Vertical",
+          new go.Binding("itemArray", "leftArray"),
+          { row: 1, column: 0,
+            itemTemplate:
+              $(go.Panel,
+                { _side: "left",  // internal property to make it easier to tell which side it's on
+                  fromSpot: go.Spot.Left, toSpot: go.Spot.Left,
+                  fromLinkable: true, toLinkable: true, cursor: "pointer",
+                  contextMenu: portMenu },
+                new go.Binding("portId", "portId"),
+                $(go.Shape, "Rectangle",
+                  { stroke: null, strokeWidth: 0,
+                    desiredSize: portSize,
+                    margin: new go.Margin(1,0) },
+                  new go.Binding("fill", "#000000"))
+              )  // end itemTemplate
+          }
+        ),  // end Vertical Panel
+
+        // the Panel holding the top port elements, which are themselves Panels,
+        // created for each item in the itemArray, bound to data.topArray
+        $(go.Panel, "Horizontal",
+          new go.Binding("itemArray", "topArray"),
+          { row: 0, column: 1,
+            itemTemplate:
+              $(go.Panel,
+                { _side: "top",
+                  fromSpot: go.Spot.Top, toSpot: go.Spot.Top,
+                  fromLinkable: true, toLinkable: true, cursor: "pointer",
+                  contextMenu: portMenu },
+                new go.Binding("portId", "portId"),
+                $(go.Shape, "Rectangle",
+                  { stroke: null, strokeWidth: 0,
+                    desiredSize: portSize,
+                    margin: new go.Margin(0, 1) },
+                  new go.Binding("fill", "#000000"))
+              )  // end itemTemplate
+          }
+        ),  // end Horizontal Panel
+
+        // the Panel holding the right port elements, which are themselves Panels,
+        // created for each item in the itemArray, bound to data.rightArray
+        $(go.Panel, "Vertical",
+          new go.Binding("itemArray", "rightArray"),
+          { row: 1, column: 2,
+            itemTemplate:
+              $(go.Panel,
+                { _side: "right",
+                  fromSpot: go.Spot.Right, toSpot: go.Spot.Right,
+                  fromLinkable: true, toLinkable: true, cursor: "pointer",
+                  contextMenu: portMenu },
+                new go.Binding("portId", "portId"),
+                $(go.Shape, "Rectangle",
+                  { stroke: null, strokeWidth: 0,
+                    desiredSize: portSize,
+                    margin: new go.Margin(1, 0) },
+                  new go.Binding("fill", "#000000"))
+              )  // end itemTemplate
+          }
+        ),  // end Vertical Panel
+
+        // the Panel holding the bottom port elements, which are themselves Panels,
+        // created for each item in the itemArray, bound to data.bottomArray
+        $(go.Panel, "Horizontal",
+          new go.Binding("itemArray", "bottomArray"),
+          { row: 2, column: 1,
+            itemTemplate:
+              $(go.Panel,
+                { _side: "bottom",
+                  fromSpot: go.Spot.Bottom, toSpot: go.Spot.Bottom,
+                  fromLinkable: true, toLinkable: true, cursor: "pointer",
+                  contextMenu: portMenu },
+                new go.Binding("portId", "portId"),
+                $(go.Shape, "Rectangle",
+                  { stroke: null, strokeWidth: 0,
+                    desiredSize: portSize,
+                    margin: new go.Margin(0, 1) },
+                  new go.Binding("fill", "#000000"))
+              )  // end itemTemplate
+          }
+        )  // end Horizontal Panel
+      );  // end Node
+	  
+	  
+    // the context menu allows users to make a position vacant,
+    // remove a role and reassign the subtree, or remove a department
+    myDiagram.contextMenu =
+      $(go.Adornment, "Vertical",
+          makeButton("Paste",
+                     function(e, obj) { e.diagram.commandHandler.pasteSelection(e.diagram.lastInput.documentPoint); },
+                     function(o) { return o.diagram.commandHandler.canPasteSelection(); }),
+          makeButton("Undo",
+                     function(e, obj) { e.diagram.commandHandler.undo(); },
+                     function(o) { return o.diagram.commandHandler.canUndo(); }),
+          makeButton("Redo",
+                     function(e, obj) { e.diagram.commandHandler.redo(); },
+                     function(o) { return o.diagram.commandHandler.canRedo(); })
+      );
+
+
+    // define the Link template
+    myDiagram.linkTemplate =
+      $(go.Link, go.Link.Orthogonal,
+        { corner: 5, relinkableFrom: true, relinkableTo: true },
+        $(go.Shape, { strokeWidth: 4, stroke: "#2F4F4F" }));  // the link shape
+
+    // read in the JSON-format data from the "mySavedModel" element
+    load();	
+	showpopup(myDiagram); 
+  }
+
+  // Remove the clicked port from the node.
+  // Add a port to the specified side of the selected nodes.
+  function addPort(side) {
+    myDiagram.startTransaction("addPort");
+    myDiagram.selection.each(function(node) {
+      // skip any selected Links
+      if (!(node instanceof go.Node)) return;
+      // compute the next available index number for the side
+      var i = 0;
+      while (node.findPort(side + i.toString()) !== node) i++;
+      // now this new port name is unique within the whole Node because of the side prefix
+      var name = side + i.toString();
+      // get the Array of port data to be modified
+      var arr = node.data[side + "Array"];
+      if (arr) {
+        // create a new port data object
+        var newportdata = {
+          portId: name,
+          portColor: go.Brush.randomColor()
+          // if you add port data properties here, you should copy them in copyPortData above
+        };
+        // and add it to the Array of port data
+        myDiagram.model.insertArrayItem(arr, -1, newportdata);
+      }
+    });
+    myDiagram.commitTransaction("addPort");
+  }
+  // Links to the port will be redrawn to the node's shape.
+  function removePort(port) {
+    myDiagram.startTransaction("removePort");
+    var pid = port.portId;
+    var arr = port.panel.itemArray;
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i].portId === pid) {
+        myDiagram.model.removeArrayItem(arr, i);
+        break;
+      }
+    }
+    myDiagram.commitTransaction("removePort");
+  }
+ 
+  // Remove all ports from the same side of the node as the clicked port.
+  function removeAll(port) {
+    myDiagram.startTransaction("removePorts");
+    var nodedata = port.part.data;
+    var side = port._side;  // there are four property names, all ending in "Array"
+    myDiagram.model.setDataProperty(nodedata, side + "Array", []);  // an empty Array
+    myDiagram.commitTransaction("removePorts");
+  }
+
+  
+
+  // Save the model to / load it from JSON text shown on the page itself, not in a database.
+  function save() {
+    document.getElementById("mySavedModel").value = myDiagram.model.toJson();
+    myDiagram.isModified = false;
+  }
+  function load() {
+    myDiagram.model = go.Model.fromJson(document.getElementById("mySavedModel").value);
+
+    // When copying a node, we need to copy the data that the node is bound to.
+    // This JavaScript object includes properties for the node as a whole, and
+    // four properties that are Arrays holding data for each port.
+    // Those arrays and port data objects need to be copied too.
+    // Thus Model.copiesArrays and Model.copiesArrayObjects both need to be true.
+
+    // Link data includes the names of the to- and from- ports;
+    // so the GraphLinksModel needs to set these property names:
+    // linkFromPortIdProperty and linkToPortIdProperty.
+  }
+ 
+ function showpopup(myDiagram){
+ 	myDiagram.addDiagramListener("ChangedSelection", function(e) { 
+		/*check whether obejct is block or a line*/
+		var obj = myDiagram.selection.first();
+		if(obj.constructor.name=="S"){ /*show popup*/
+			document.getElementById('gohashid_text').innerHTML = obj.data.__gohashid;
+			document.getElementById('gohashid').value = obj.data.__gohashid;
+			document.getElementById("popup").style.display="block";
+		}
+	});		 
+ }
+</script>

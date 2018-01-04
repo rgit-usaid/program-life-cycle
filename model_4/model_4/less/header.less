@@ -1,0 +1,60 @@
+header{
+  margin-bottom: 10px;
+  border-top: 5px solid #112e51;
+  background: #e4f5ff;
+  height: 80px;
+  .head{
+    width: 100%;
+    text-align: center;
+    li{
+      float: none;
+      display: inline-block;
+    }
+    h2{
+      margin-top: 0.5em;
+      a{
+        text-decoration: none;
+        color: #333;
+      }
+    }
+    img{
+      margin-top: 0.5em;
+    }
+  }
+}
+.menu{
+  background: #112e51;
+  padding: 10px 0;
+  .usa-navbar{
+    height: 5.3rem;
+    margin: 0 auto;
+    li{
+      margin:0 40px;
+      a{
+        &:hover{
+          -webkit-box-shadow: inset 0 0 0 2px #aeb0b5,0 0 3px #3e94cf,0 0 7px #3e94cf;
+          box-shadow: inset 0 0 0 2px #aeb0b5,0 0 3px #3e94cf,0 0 7px #3e94cf;
+          color: #fff;
+        }
+        &:focus{
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
+.usa-button.usa-button-outline-inverse.active-class{
+  background: #0071bc;
+  color: #fff;
+  &:hover{
+    -webkit-box-shadow: inset 0 0 0 2px #aeb0b5,0 0 3px #3e94cf,0 0 7px #3e94cf;
+    box-shadow: inset 0 0 0 2px #aeb0b5,0 0 3px #3e94cf,0 0 7px #3e94cf;
+    color: #fff;
+  }
+  &:focus{
+    text-decoration: none;
+  }
+}
+.usa-button.usa-button-outline-inverse.active-class-white{
+  background: #0071bc;
+}

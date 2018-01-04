@@ -1,0 +1,7 @@
+[22-Nov-2016 15:04:36] PHP Parse error:  syntax error, unexpected T_ECHO in /home/rgdemode/public_html/usaid/phoenix/ajax_files/get_input_field_by_commit_type.php on line 98
+[22-Nov-2016 15:05:13] PHP Parse error:  syntax error, unexpected ';' in /home/rgdemode/public_html/usaid/phoenix/ajax_files/get_input_field_by_commit_type.php on line 98
+[24-Nov-2016 14:57:09] PHP Parse error:  syntax error, unexpected '.' in /home/rgdemode/public_html/usaid/phoenix/ajax_files/get_fund_strip_drop.php on line 21
+[26-Mar-2017 20:01:31] PHP Warning:  Unknown: write failed: Disk quota exceeded (122) in Unknown on line 0
+[26-Mar-2017 20:01:31] PHP Warning:  Unknown: Failed to write session data (files). Please verify that the current setting of session.save_path is correct (/tmp) in Unknown on line 0
+[26-Mar-2017 20:01:35] PHP Warning:  Unknown: write failed: Disk quota exceeded (122) in Unknown on line 0
+[26-Mar-2017 20:01:35] PHP Warning:  Unknown: Failed to write session data (files). Please verify that the current setting of session.save_path is correct (/tmp) in Unknown on line 0

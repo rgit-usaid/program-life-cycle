@@ -1,0 +1,81 @@
+// Left Menu
+#left-menu{
+    list-style-type: none;
+    li{
+        margin-top: 10px;
+        padding: 4px 0;
+        a{
+            &:focus{
+                box-shadow: 0 0 0px #3e94cf,0 0 0px #3e94cf;
+                outline: 0;
+            }
+            img{
+                float: left;
+                vertical-align: middle;
+                width: 50px;
+            }
+            p{
+                margin-top: 7px;
+                margin-left: 60px;
+                font-size: 15px;
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+    }
+}
+.active-left-menu{
+    border:1px solid #ccc;
+    -webkit-box-shadow: 0 0 3px #3e94cf,0 0 7px #3e94cf;
+    box-shadow: 0 0 3px #3e94cf,0 0 7px #3e94cf;
+    outline: 0;
+}
+// Right Menu
+#right-menu{
+    li{
+        background: #e5f6ff;
+        a{
+            padding: 10px 12px;
+            &:focus{
+                box-shadow: none;
+            }
+        }
+    }
+}
+.tab-content{
+    .tab-pane{
+        h3{
+            text-align: center;
+        }
+        p{
+        }
+    }
+}
+
+// Middle Content
+.wrap, .wrap-right-menu{
+    border:1px solid #ccc;
+    padding:5px;
+
+}
+
+// Other Custom
+label{
+    margin-top: 0;
+    text-align: left;
+}
+.form-horizontal .control-label{
+    text-align: left;
+}
+.form-control{
+    border-radius: 0;
+    border:1px solid #000;
+}
+.form-group{
+    margin: 20px 0;
+}
+select{
+    background-image: url("../img/arrow-down.png");
+}
+
+

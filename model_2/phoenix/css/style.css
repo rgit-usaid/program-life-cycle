@@ -1,0 +1,258 @@
+header .navbar-default {
+  background-color: #666699;
+  height: 100px;
+  margin-bottom: 0px;
+  border-radius: 0px;
+}
+header .navbar-default .navbar-brand {
+  color: #fff;
+  font-size: 60px;
+  font-weight: bold;
+  margin-top: 25px;
+}
+header .navbar-default .navbar-brand:hover {
+  color: #fff;
+}
+header .navbar-default .dropdown {
+  padding: 3px;
+  margin-top: 30px;
+}
+header .navbar-default .dropdown .dropdown-toggle {
+  background-color: transparent;
+  border: 0px;
+  color: #fff;
+  font-size: 16px;
+}
+header .navbar-default .dropdown .dropdown-toggle:focus {
+  background-color: #fff;
+  color: #000;
+}
+header .navbar-default .dropdown .dropdown-menu {
+  width: 225px;
+}
+header .navbar-default .dropdown .dropdown-menu li {
+  margin-top: 6px;
+}
+header .navbar-default .dropdown .rightMenu {
+  position: relative;
+  float: right;
+}
+header .navbar-default .right-item {
+  margin-top: 25px;
+}
+header .navbar-default .right-item li a {
+  padding: 10px 10px;
+  color: #fff;
+}
+.clear {
+  clear: both;
+}
+/* breadcrumb Starts Here */
+.breadcrumb {
+  background-color: #333366;
+  border-radius: 0px;
+  margin-bottom: 0px;
+}
+.breadcrumb li a {
+  color: #fff;
+}
+/* Menu Nav */
+.menu-nav {
+  height: 70px;
+  background-color: #eeeeee;
+  border-bottom: 2px solid #000;
+}
+.menu-nav .navbar li {
+  margin-left: 20px;
+  margin-top: 13px;
+}
+.menu-nav .navbar li a {
+  padding-top: 9px;
+  padding-bottom: 9px;
+}
+.title h3 {
+  margin-left: 25px;
+  font-weight: bold;
+}
+.title .divider {
+  height: 2px;
+  background-color: #eee;
+}
+.title .main-content ul li {
+  display: block;
+  padding: 8px;
+  margin-left: 8px;
+}
+.title .main-content ul li a {
+  font-size: 17px;
+  /*text-decoration: none;*/
+}
+.edit {
+  font-weight: bold;
+  margin-left: 10px;
+}
+.new-form {
+  padding-top: 10px;
+}
+.new-form .nav-tabs {
+  margin-left: 7px;
+  border-bottom: 3px solid #ddd;
+}
+.new-form .nav-tabs li {
+  border-radius: 2px solid gray;
+  background-color: #eeeeee;
+  font-weight: bold;
+  color: #000;
+}
+.new-form .nav-tabs li:hover {
+  background-color: #eeeeee;
+  font-weight: bold;
+  color: #000;
+}
+/*Ex Col CSS*/
+.exp-col {
+  padding-top: 15px;
+}
+.exp-col li {
+  display: inline-block;
+}
+.exp-col li a {
+  font-weight: bold;
+  font-size: 16px;
+  padding: 5px;
+  text-decoration: none;
+}
+/*Form*/
+.manage-form {
+  padding-top: 9px;
+}
+.manage-form .form-title {
+  width: 165px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 10px;
+  position: relative;
+  background-color: #fff;
+}
+.manage-form .form-title .fa {
+  cursor: pointer: ;
+  margin: 0px 15px;
+}
+.manage-form .new-form-content {
+  margin-top: -11px;
+  height: auto;
+  width: 900px;
+  border: 2px solid #ddd;
+}
+.manage-form .new-form-content .manage-funds {
+  padding: 25px;
+}
+.manage-form .new-form-content .manage-funds label {
+  padding-top: 10px;
+}
+.manage-form .new-form-content .manage-funds .submit {
+  background-color: #ddd;
+}
+.data-display {
+  padding-top: 15px;
+}
+.bs-caret,
+.caret {
+  display: none;
+}
+.dropdown-menu {
+  width: 550px;
+}
+.bootstrap-select > .dropdown-toggle {
+  width: 555px;
+}
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #ccccff;
+}
+thead {
+  background-color: #666699;
+  color: #fff;
+}
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover,
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover {
+  background-color: #666699;
+  border-color: #666699;
+}
+.text_right{
+    text-align: right !important;
+  }
+ /*= css for help popup =*/ 
+  .fund-help-popup{
+  color:inherit;
+  max-width:450px;
+  position:absolute;
+  top:27%;
+  right:3%;
+  margin:0 auto;
+  border:1px solid#a9a9a9;
+  max-height:300px;
+  height:250px;
+  z-index:999;
+  background:#fff;
+  margin-bottom:25px;
+  display:none;
+  box-shadow:0px 4px 7px #a8a8a8;;
+  -webkit-box-shadow:0px 4px 7px #a8a8a8;;
+  -moz-box-shadow:0px 4px 7px #a8a8a8;;;
+
+  }
+  .fund-help-popup2{
+  color:inherit;
+  max-width:450px;
+  position:absolute;
+  top:66%;
+  right:3%;
+  margin:0 auto;
+  border:1px solid#a9a9a9;
+  max-height:300px;
+  height:225px;
+  z-index:999;
+  background:#fff;
+  margin-top:10px;
+  display:none;
+  box-shadow:0px 4px 7px #a8a8a8;;
+  -webkit-box-shadow:0px 4px 7px #a8a8a8;;
+  -moz-box-shadow:0px 4px 7px #a8a8a8;;;
+
+  }
+  
+.fund-help-popup .content-section,.fund-help-popup2 .content-section{
+    overflow: auto;
+    height:178px;
+    padding: 15px;
+    overflow-x: hidden;
+}
+ .fund-help-popup .cancel-help,.fund-help-popup2 .cancel-help2{
+	 position:absolute;
+	 top:0px;
+	right:-10px;
+	color:#fff;
+	padding-top:5px;
+	 } 
+.fund-help-popup .panel-heading,.fund-help-popup2 .panel-heading  {
+    padding: 1px 15px;
+    border-bottom: 1px solid transparent;
+    border-radius: 5px;
+    background: #666699;
+    margin-bottom: 4px;
+  font-weight:700;
+  color:#fff;
+}
+
+.fund-help-popup .help-header,.fund-help-popup2 .help-header{
+	 background: #666699;
+	 margin:0px;
+	}
+    .pointer_help,.pointer_help2 {
+    cursor: pointer;
+    font-size:24px !important;
+  }

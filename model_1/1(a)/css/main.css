@@ -1,0 +1,109 @@
+/*=====COMMON CLASSES=====*/
+
+@font-face {
+  font-family: "Source Sans Pro";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/sourcesanspro-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/sourcesanspro-regular-webfont.woff2") format("woff2"), url("../fonts/sourcesanspro-regular-webfont.woff") format("woff"), url("../fonts/sourcesanspro-regular-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  font-style: italic;
+  font-weight: 400;
+  src: url("../fonts/sourcesanspro-italic-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/sourcesanspro-italic-webfont.woff2") format("woff2"), url("../fonts/sourcesanspro-italic-webfont.woff") format("woff"), url("../fonts/sourcesanspro-italic-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/sourcesanspro-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/sourcesanspro-bold-webfont.woff2") format("woff2"), url("../fonts/sourcesanspro-bold-webfont.woff") format("woff"), url("../fonts/sourcesanspro-bold-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Merriweather";
+  font-style: normal;
+  font-weight: 300;
+  src: url("../fonts/merriweather-light-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/merriweather-light-webfont.woff2") format("woff2"), url("../fonts/merriweather-light-webfont.woff") format("woff"), url("../fonts/merriweather-light-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Merriweather";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/merriweather-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/merriweather-regular-webfont.woff2") format("woff2"), url("../fonts/merriweather-regular-webfont.woff") format("woff"), url("../fonts/merriweather-regular-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Merriweather";
+  font-style: italic;
+  font-weight: 400;
+  src: url("../fonts/merriweather-italic-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/merriweather-italic-webfont.woff2") format("woff2"), url("../fonts/merriweather-italic-webfont.woff") format("woff"), url("../fonts/merriweather-italic-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Merriweather";
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/merriweather-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/merriweather-bold-webfont.woff2") format("woff2"), url("../fonts/merriweather-bold-webfont.woff") format("woff"), url("../fonts/merriweather-bold-webfont.ttf") format("truetype");
+}
+
+body{overflow-x:hidden; font-family:"Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif}
+.main-container{margin-top:60px;background:#fff;}
+.left{float:left;}
+.right{float:right;}
+.clear{clear:both;}
+.breadcrumb{background:white;color:#333;font-size:13px;}
+.breadcrumb a{color:#73879C !important; padding-left:0; margin-left:-10px;}.breadcrumb .active{color:#205493}
+
+/*=====HEADER=====*/
+.navbar{background:#e4e2e0;}
+.navbar ul, .navbar ul li{list-style:none;margin:0;padding:0;}
+.navbar ul{display:block;}
+.navbar ul li{display:inline-block;}
+.navbar a.logo{padding-top:10px;display:block;}
+ul.header li{text-align:center;color:#333;width:100%;font-size:24px;font-weight:bold;position:relative;}
+ul.header li a{position:absolute;right:0;top:5px}
+.header .logo{width:150px;}
+.header .header-heading{padding:8px 10px;display:inline-block;color:#000;font-size:28px;} 
+.header .header-modelname{position:absolute;padding:0px 20px;margin:10px 0;color:#000;left:0; background-position:30% 70%; font-size:28px;}
+
+
+/*=====MAIN CONTAINER=====*/
+/*=====LEFTPANEL=====*/
+.main-container ul,.main-container li{margin:0; padding:0;}
+.main-container ul{display:block;}.main-container .leftpanel >ul{margin-top:20px;margin-right:10px;margin-left:10px;}.main-container ul li{display:block;}
+.main-container .leftpanel{width:270px;position:absolute;min-height:95%;background:#fff;font-size:17px;color:#000;}
+.main-container .leftpanel li{padding:10px 10px;position:relative;font-size:17px;} .main-container .leftpanel > ul > li{ border-bottom:solid 1px #000;}
+.main-container .leftpanel li ul{display:none; background:#fff;font-size:13px;}
+.main-container .leftpanel > ul > li >a{color:#000; cursor:pointer; display:block;}
+.main-container .leftpanel li i{font-size:18px; width:27px; display:inline-block;}
+.main-container .leftpanel li.active{padding:0;}
+.main-container .leftpanel li.active > a{padding:10px 10px; border-right:5px solid #0071bc; border-bottom:solid 1px #fff; display:block;color:#0071bc; }
+
+.main-container .list-subitem-par li:before{display:inline-block; content:""; width:8px; height:8px; border-radius:50%; background:#fff; margin-top:5px; margin-right:3px; margin-left:13px; margin-right:10px;}
+
+.main-container .list-subitem-par li:after{position:absolute;top:0; bottom:0; left:27px; content:""}
+.main-container a{text-decoration:none;color:#000;}
+
+
+/*=====RIGHTPANEL=====*/
+.data-container{margin-left:270px;background:#fff;padding-top:5px;padding-bottom:10px;}
+.dashboard-heading{font-size:35px;margin-top:50px; text-align:left; margin-bottom:50px; color:#205493; font-weight:bold; font-family:"Merriweather", "Georgia", "Cambria", "Times New Roman", "Times", serif}
+.data-container .search-desc{width:60%;float:left;font-size:20px;margin-top:10px;color:#000; font-family:"Merriweather", "Georgia", "Cambria", "Times New Roman", "Times", serif}
+.data-container .data-search{width:30%; float:right;}
+.data-container .data-search input{box-shadow:none;}
+.data-container .search-blk{margin-bottom:20px;}
+.data-container .data-search span{background:#205493;color:white;border-color:#205493;cursor:pointer;}
+.data-container .tbl-block{background:white; padding:10px; border:solid 1px #E6E9ED}
+.data-container .tbl-caption{margin-bottom:15px; border-bottom:solid 2px #E6E9ED; padding-bottom:10px;}
+.data-container .tbl-caption .tbl-content-head{font-size:14px; width:60%;float:left;color:#73879C}
+.data-container .tbl-caption .tbl-content-btn{width:35%;float:right;text-align:right;}
+.data-container .tbl-caption .tbl-content-btn a{display:inline-block;width:30px;color:#73879C;} 
+.dataTables_wrapper .dataTables_filter{display:none;}
+.data-container .datatable-responsive_length{width:75%;}
+.data-container .table-container th{font-weight:normal;color:#002a6c; font-weight:bold; font-size:14px;}
+.table.dataTable thead th, table.dataTable thead td{padding:8px;}
+#example_length select{height:40px; width:60px; padding:10px;}
+.data-container .tbl-caption .tbl-content-head{color:#046b99; font-size:18px;}

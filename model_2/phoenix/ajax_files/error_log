@@ -1,0 +1,3 @@
+[22-Nov-2016 15:04:36] PHP Parse error:  syntax error, unexpected T_ECHO in /home/rgdemode/public_html/usaid/phoenix/ajax_files/get_input_field_by_commit_type.php on line 98
+[22-Nov-2016 15:05:13] PHP Parse error:  syntax error, unexpected ';' in /home/rgdemode/public_html/usaid/phoenix/ajax_files/get_input_field_by_commit_type.php on line 98
+[24-Nov-2016 14:57:09] PHP Parse error:  syntax error, unexpected '.' in /home/rgdemode/public_html/usaid/phoenix/ajax_files/get_fund_strip_drop.php on line 21
